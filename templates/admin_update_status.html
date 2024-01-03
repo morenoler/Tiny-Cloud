@@ -1,0 +1,33 @@
+<!-- templates/admin_update_status.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update User Status</title>
+</head>
+<body>
+    <h1>Update User Status</h1>
+    <p>Updating status for {{ user_to_update.username }}</p>
+    <form action="/admin_update_status/{{ user_to_update.id }}" method="post">
+        {{ form.hidden_tag() }}
+        <label for="new_status">New Status:</label>
+        {{ form.new_status(class="form-control", required=true) }}
+        <br>
+        <input type="submit" value="Update Status" class="btn btn-primary">
+    </form>
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+    
+    <a href="{{ url_for('admin_users') }}">Back to Users</a>
+</body>
+</html>

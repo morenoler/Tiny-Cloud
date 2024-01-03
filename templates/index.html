@@ -1,0 +1,49 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+</head>
+<body>
+    {% if user %}
+        <!-- Если пользователь вошел в систему, покажите файлы и форму загрузки -->
+        <h1>Welcome, {{ user.username }} ({{user.status}})!</h1>
+        <a href="{{ url_for('logout') }}">Logout</a>
+        <br>
+        <a href="{{ url_for('view_files') }}">View Files</a>
+
+        <h2>Upload File</h2>
+        <form action="{{ url_for('upload_file') }}" method="post" enctype="multipart/form-data">
+            {{ upload_form.csrf_token }}
+            {{ upload_form.file.label }}
+            {{ upload_form.file }}
+            {{ upload_form.submit }}
+        </form>
+        {% if user.status == 'SuperAdmin' %}
+            <a href="{{ url_for('SuperAdmin_users') }}">View Users</a>
+        {% endif %}
+        <br>
+
+
+    {% else %}
+        <!-- Если пользователь не в системе, покажите форму входа -->
+        <h1>Please log in or create an account</h1>
+        <form action="{{ url_for('login') }}" method="post">
+            <!-- ... (ваш код формы входа) -->
+        </form>
+
+        <form action="{{ url_for('register') }}" method="post">
+            <!-- ... (ваш код формы входа) -->
+        </form>
+        <br>
+
+        <a href="{{ url_for('register') }}">Register</a>
+        <a href="{{ url_for('login') }}">Log in</a>
+    {% endif %}
+
+
+</body>
+</html>

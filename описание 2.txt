@@ -1,0 +1,173 @@
+# app.py
+from flask import Flask, render_template, request, redirect, url_for, flash, send_from_directory, session
+from werkzeug.utils import secure_filename
+import os
+import time
+
+app = Flask(__name__)
+app.secret_key = '123'  # Замените на свой уникальный секретный ключ
+UPLOAD_FOLDER = 'files'
+
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+def allowed_file(filename):
+    return '.' in filename
+
+def get_files():
+    files = []
+    for filename in os.listdir(app.config['UPLOAD_FOLDER']):
+        file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        timestamp = os.path.getctime(file_path)
+        files.append({'name': filename, 'timestamp': time.ctime(timestamp)})
+    return files
+
+@app.route('/')
+def index():
+    if 'username' not in session:
+        return render_template('login.html')
+
+    return render_template('index.html')
+
+@app.route('/upload', methods=['POST'])
+def upload_file():
+    uploaded_file = request.files['file']
+
+    if uploaded_file.filename != '' and allowed_file(uploaded_file.filename):
+        timestamp = int(time.time())
+        filename = f"{timestamp}_{secure_filename(uploaded_file.filename)}"
+        file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        uploaded_file.save(file_path)
+        flash(f'File uploaded successfully. Path: {file_path}', 'success')
+
+    return redirect(url_for('index'))
+
+@app.route('/login', methods=['POST'])
+def login():
+    # Пока что используем простую проверку для упрощения
+    if request.form['username'] == 'admin' and request.form['password'] == 'admin':
+        session['username'] = 'admin'
+    else:
+        flash('Invalid credentials', 'danger')
+
+    return redirect(url_for('index'))
+
+@app.route('/logout')
+def logout():
+    session.pop('username', None)
+    return redirect(url_for('index'))
+
+@app.route('/files')
+def view_files():
+    if 'username' not in session:
+        return redirect(url_for('index'))
+
+    files = get_files()
+    return render_template('view_files.html', files=files)
+
+@app.route('/download/<filename>')
+def download_file(filename):
+    return send_from_directory(app.config['UPLOAD_FOLDER'], filename, as_attachment=True)
+
+if __name__ == '__main__':
+    if not os.path.exists(UPLOAD_FOLDER):
+        os.makedirs(UPLOAD_FOLDER)
+
+    app.run(debug=True)
+
+
+<!-- templates/login.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+</head>
+<body>
+    <h1>Login</h1>
+    <form action="/login" method="post">
+        <label for="username">Username:</label>
+        <input type="text" name="username" id="username" required>
+        <br>
+        <label for="password">Password:</label>
+        <input type="password" name="password" id="password" required>
+        <br>
+        <input type="submit" value="Login">
+    </form>
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+</body>
+</html>
+
+
+
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Upload</title>
+</head>
+<body>
+    <form action="/upload" method="post" enctype="multipart/form-data">
+        <input type="file" name="file">
+        <input type="submit" value="Upload">
+    </form>
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+</body>
+</html>
+
+
+
+<!-- templates/view_files.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File View</title>
+</head>
+<body>
+    <h2>File View</h2>
+    <table>
+        <tr>
+            <th>File Name</th>
+            <th>Timestamp</th>
+            <th>Action</th>
+        </tr>
+        {% for file in files %}
+            <tr>
+                <td>{{ file.name }}</td>
+                <td>{{ file.timestamp }}</td>
+                <td><a href="{{ url_for('download_file', filename=file.name) }}">Download</a></td>
+            </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
+
+
+
+Напишите новый код.
+При открытии страницы должна появится форма для регистрации и форма для загрузки файла одновременно. если регистрация под логином Admin и паролем Admin проходит успешно, то вместо формы регистрации должна появиться таблица со всеми фалами в папке files и возможностью их скачать

@@ -1,0 +1,48 @@
+<!-- templates/register.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+</head>
+<body>
+    <h1>Register</h1>
+    <form action="/register" method="post">
+        {% if user %}
+            {% if user.status == 'SuperAdmin' %}
+                <label for="status">Status:</label>
+                {{ form.status(class="form-control", required=true) }}
+            {% endif %}
+        {% else %}
+            <h1>Please create an account</h1>
+            {{ form.hidden_tag() }}
+            <label for="username">Username:</label>
+            {{ form.username(class="form-control", required=true) }}
+            <br>
+            <label for="password">Password:</label>
+            {{ form.password(class="form-control", required=true) }}
+            <br>
+            <label for="confirm_password">Confirm Password:</label>
+            {{ form.confirm_password(class="form-control", required=true) }}
+            <br>
+            <label for="status">Status:</label>
+            {{ form.status(class="form-control", required=true) }}
+            <br>
+            <input type="submit" value="Register" class="btn btn-primary">
+        {% endif %}
+        </form>
+        <br>
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+</body>
+</html>

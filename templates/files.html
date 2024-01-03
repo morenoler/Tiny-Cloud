@@ -1,0 +1,29 @@
+<!-- templates/files.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- ваш существующий код -->
+</head>
+<body>
+    <h1>Files</h1>
+    <a href="{{ url_for('index') }}">Back</a>
+    <table>
+        <thead>
+            <tr>
+                <th>File Name</th>
+                <th>Timestamp</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for file in files %}
+                <tr>
+                    <td>{{ file.name }}</td>
+                    <td>{{ file.timestamp }}</td>
+                    <td><a href="{{ url_for('download_file', filename=file.name) }}">Download</a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
