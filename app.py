@@ -9,8 +9,10 @@ from werkzeug.security import generate_password_hash, check_password_hash
 import os
 import time
 from datetime import datetime
-from flask_sqlalchemy import SQLAlchemy
 from flask import abort
+from sqlalchemy.orm import relationship
+from sqlalchemy.orm import joinedload
+
 
 
 app = Flask(__name__)
@@ -25,10 +27,11 @@ db = SQLAlchemy(app)
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(20), unique=True, nullable=False)
+    username = db.Column(db.String(50), unique=True, nullable=False)
     password = db.Column(db.String(60), nullable=False)
     status = db.Column(db.String(10), nullable=False)  # 'Admin' or 'User'
     account_status = db.Column(db.String(10), nullable=True, default='goodOne')  # 'banned', 'unbanned', 'goodOne'
+    files = db.relationship('File', back_populates='user')
 
 
 
@@ -40,9 +43,12 @@ class UpdateStatusForm(FlaskForm):
 class File(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
+    theme = db.Column(db.String(20), nullable=False)  # Add the 'theme' column
     timestamp = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    user = db.relationship('User', backref=db.backref('files', lazy=True))
+    user = db.relationship('User', back_populates='files')
+
+
 
 # Create the tables if they don't exist
 with app.app_context():
@@ -52,7 +58,9 @@ with app.app_context():
 # Define the forms
 class UploadForm(FlaskForm):
     file = FileField('Choose File')
+    theme = StringField('Theme', validators=[Length(max=50)])  # Add a theme field
     submit = SubmitField('Upload')
+
 
 class RegistrationForm(FlaskForm):
     username = StringField('Username', validators=[InputRequired(), Length(min=4, max=20), Regexp('^\w+$', message="Username must contain only letters, numbers, and underscores.")])
@@ -114,15 +122,15 @@ def create_admin():
             db.session.commit()
 
             flash(f'Admin account {new_admin.username} created successfully.', 'success')
-            return redirect(url_for('admin_users'))
+            return redirect(url_for('SuperAdmin_users'))
     except:
-        flash('User with this name already exists.', 'failure')
+        flash('Something goes wrong. Try again.', 'failure')
 
     return render_template('create_admin.html', form=form)
 
 
 
-@app.route('/admin_users')
+@app.route('/SuperAdmin_users')
 def SuperAdmin_users():
     if 'user_id' not in session:
         return redirect(url_for('index'))
@@ -310,9 +318,19 @@ def register():
 def allowed_file(filename):
     return '.' in filename
 
-def get_files():
-    files = File.query.all()
+
+def get_files(order_by='timestamp'):
+    if order_by not in ['timestamp', 'theme', 'user.username']:
+        order_by = 'timestamp'
+
+    if order_by == 'user.username':
+        # Use joinedload to join the User relationship and avoid the N+1 query problem
+        files = File.query.join(File.user).options(joinedload(File.user)).order_by(getattr(User, 'username')).all()
+    else:
+        files = File.query.order_by(getattr(File, order_by)).all()
+
     return files
+
 
 
 @app.route('/upload', methods=['POST'])
@@ -327,6 +345,7 @@ def upload_file():
         return redirect(url_for('index'))
 
     uploaded_file = request.files['file']
+    theme = request.form.get('theme')  # Get the theme from the form
 
     if uploaded_file.filename != '' and allowed_file(uploaded_file.filename):
         timestamp = datetime.utcnow()
@@ -334,7 +353,7 @@ def upload_file():
         file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
         uploaded_file.save(file_path)
 
-        new_file = File(name=filename, timestamp=timestamp, user_id=session['user_id'])
+        new_file = File(name=filename, timestamp=timestamp, user_id=session['user_id'], theme=theme)  # Include theme
         db.session.add(new_file)
         db.session.commit()
 
@@ -351,15 +370,22 @@ def view_files():
         user = User.query.get(session['user_id'])
         if user:
             status = user.status
-    files = get_files()
-    if status == 'Admin':
-        return render_template('filesAdmin.html', files=files)
-    else:
-        return render_template('files.html', files=files)
+
+    # Get the order_by value from the request parameters
+    order_by = request.args.get('order_by')
+
+    # Get files based on the selected order_by value
+    files = get_files(order_by=order_by)
+
+    # Pass the order_by value to the template
+    return render_template('filesAdmin.html', files=files, order_by=order_by)
+
 
 @app.route('/download/<filename>')
 def download_file(filename):
     return send_from_directory(app.config['UPLOAD_FOLDER'], filename, as_attachment=True)
+
+
 
 if __name__ == '__main__':
     with app.app_context():

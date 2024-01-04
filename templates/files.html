@@ -10,6 +10,7 @@
     <table>
         <thead>
             <tr>
+                <th>Theme</th>
                 <th>File Name</th>
                 <th>Timestamp</th>
                 <th>Action</th>
@@ -18,6 +19,7 @@
         <tbody>
             {% for file in files %}
                 <tr>
+                    <td>{{ file.theme }}</td>
                     <td>{{ file.name }}</td>
                     <td>{{ file.timestamp }}</td>
                     <td><a href="{{ url_for('download_file', filename=file.name) }}">Download</a></td>

@@ -2,13 +2,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- ваш существующий код -->
+    <tr>
+        <th><a href="{{ url_for('view_files', order_by='timestamp') }}">Timestamp</a></th>
+        <th><a href="{{ url_for('view_files', order_by='theme') }}">Theme</a></th>
+        <th><a href="{{ url_for('view_files', order_by='user.username') }}">User</a></th>
+            <!-- Add other columns as needed -->
+    </tr>
 </head>
 <body>
     <h1>Files</h1>
     <table>
         <thead>
             <tr>
+                <th>Theme</th>
                 <th>File Name</th>
                 <th>Timestamp</th>
                 <th>Uploaded By</th>
@@ -19,6 +25,7 @@
         <tbody>
             {% for file in files %}
                 <tr>
+                    <td>{{ file.theme }}</td>
                     <td>{{ file.name }}</td>
                     <td>{{ file.timestamp }}</td>
                     <td>{{ file.user.username }}</td>
