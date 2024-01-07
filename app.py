@@ -47,6 +47,7 @@ class File(db.Model):
     timestamp = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     user = db.relationship('User', back_populates='files')
+    comment = db.Column(db.String(255), nullable=True)
 
 
 
@@ -345,7 +346,8 @@ def upload_file():
         return redirect(url_for('index'))
 
     uploaded_file = request.files['file']
-    theme = request.form.get('theme')  # Get the theme from the form
+    theme = request.form.get('theme')
+    comment = request.form.get('comment')  # Get the comment from the form
 
     if uploaded_file.filename != '' and allowed_file(uploaded_file.filename):
         timestamp = datetime.utcnow()
@@ -353,7 +355,7 @@ def upload_file():
         file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
         uploaded_file.save(file_path)
 
-        new_file = File(name=filename, timestamp=timestamp, user_id=session['user_id'], theme=theme)  # Include theme
+        new_file = File(name=filename, timestamp=timestamp, user_id=session['user_id'], theme=theme, comment=comment)
         db.session.add(new_file)
         db.session.commit()
 

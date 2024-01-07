@@ -21,7 +21,6 @@
             {{ upload_form.file.label }}
             {{ upload_form.file }}
             
-            <!-- Add a new input for theme selection -->
             <label for="theme">Choose Theme:</label>
             <select name="theme" id="theme">
                 <option value="None">None</option>
@@ -33,6 +32,10 @@
                 <option value="Other">Other</option>
                 <!-- Add more options as needed -->
             </select>
+
+            <!-- Add a new input for the comment -->
+            <label for="comment">Comment:</label>
+            <input type="text" name="comment" id="comment" maxlength="255">
 
             {{ upload_form.submit }}
         </form>
