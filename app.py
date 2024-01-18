@@ -12,6 +12,7 @@ from datetime import datetime
 from flask import abort
 from sqlalchemy.orm import relationship
 from sqlalchemy.orm import joinedload
+from sqlalchemy import or_
 
 
 
@@ -152,6 +153,7 @@ def SuperAdmin_users():
 
 @app.route('/admin_dashboard')
 def admin_dashboard():
+
     if 'user_id' not in session:
         return redirect(url_for('index'))
 
@@ -160,8 +162,17 @@ def admin_dashboard():
     if user.status != 'Admin' and user.status != 'SuperAdmin':
         # Если пользователь не администратор, запретить доступ
         abort(403)
+    theme_filter = request.args.get('theme_filter')
+    start_date_filter = request.args.get('start_date')
+    end_date_filter = request.args.get('end_date')
 
-    files = get_files()
+    # Convert the date filter strings to datetime objects
+    start_date_filter = datetime.strptime(start_date_filter, '%Y-%m-%d') if start_date_filter else None
+    end_date_filter = datetime.strptime(end_date_filter, '%Y-%m-%d') if end_date_filter else None
+
+    # Get files based on the selected filters
+    files = get_files(order_by='timestamp', theme_filter=theme_filter, start_date_filter=start_date_filter, end_date_filter=end_date_filter)
+
     return render_template('filesAdmin.html', user=user, files=files)
 
 
@@ -320,17 +331,32 @@ def allowed_file(filename):
     return '.' in filename
 
 
-def get_files(order_by='timestamp'):
+def get_files(order_by='timestamp', theme_filter=None, start_date_filter=None, end_date_filter=None):
+
     if order_by not in ['timestamp', 'theme', 'user.username']:
         order_by = 'timestamp'
 
+    query = File.query
+
+    if theme_filter:
+        query = query.filter_by(theme=theme_filter)
+
+    if start_date_filter and end_date_filter:
+        query = query.filter(File.timestamp.between(start_date_filter, end_date_filter))
+    elif start_date_filter:
+        query = query.filter(File.timestamp >= start_date_filter)
+    elif end_date_filter:
+        query = query.filter(File.timestamp <= end_date_filter)
+
     if order_by == 'user.username':
-        # Use joinedload to join the User relationship and avoid the N+1 query problem
-        files = File.query.join(File.user).options(joinedload(File.user)).order_by(getattr(User, 'username')).all()
+        files = query.join(File.user).options(joinedload(File.user)).order_by(getattr(User, 'username')).all()
     else:
-        files = File.query.order_by(getattr(File, order_by)).all()
+        files = query.order_by(getattr(File, order_by)).all()
 
     return files
+
+
+
 
 
 
@@ -373,14 +399,17 @@ def view_files():
         if user:
             status = user.status
 
-    # Get the order_by value from the request parameters
+    # Получаем параметры фильтрации из запроса
     order_by = request.args.get('order_by')
+    theme_filter = request.args.get('theme_filter')
+    start_date_filter = request.args.get('start_date_filter')
+    end_date_filter = request.args.get('end_date_filter')
 
-    # Get files based on the selected order_by value
-    files = get_files(order_by=order_by)
+    # Получаем файлы на основе выбранных параметров фильтрации
+    files = get_files(order_by=order_by, theme_filter=theme_filter, start_date_filter=start_date_filter, end_date_filter=end_date_filter)
 
-    # Pass the order_by value to the template
-    return render_template('filesAdmin.html', files=files, order_by=order_by)
+    # Передаем значения параметров фильтрации в шаблон
+    return render_template('filesAdmin.html', files=files, order_by=order_by, theme_filter=theme_filter, start_date_filter=start_date_filter, end_date_filter=end_date_filter)
 
 
 @app.route('/download/<filename>')

@@ -11,7 +11,24 @@
 </head>
 <body>
     <h1>Files</h1>
+    <form action="{{ url_for('view_files') }}" method="get">
+        <label for="theme_filter">Filter by Theme:</label>
+        <select name="theme_filter" id="theme_filter">
+            <option value="">All Themes</option>
+            <option value="Coding" {% if theme_filter == 'Coding' %}selected{% endif %}>Coding</option>
+            <!-- Добавьте аналогичные опции для других тем -->
+        </select>
+        
+        <label for="start_date_filter">Start Date:</label>
+        <input type="date" name="start_date_filter" value="{{ start_date_filter }}">
+        
+        <label for="end_date_filter">End Date:</label>
+        <input type="date" name="end_date_filter" value="{{ end_date_filter }}">
+
+        <button type="submit">Apply Filters</button>
+    </form>
     <table>
+
         <thead>
             <tr>
                 <th>Theme</th>
@@ -41,3 +58,5 @@
     <a href="{{ url_for('index') }}">Back to Home</a>
 </body>
 </html>
+
+
