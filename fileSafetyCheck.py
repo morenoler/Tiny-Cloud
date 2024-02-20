@@ -11,7 +11,7 @@ def safety_check(file):
     files = {"file": (file_path, open(file_path, "rb"), "text/plain")}
     headers = {
         "accept": "application/json",
-        "x-apikey": "821c7d971d26bff91665027e1947212bc34cf7d671acf7382b91730444ac6219"
+        "x-apikey": "apikey"
     }
 
     response = requests.post(url, files=files, headers=headers)
@@ -37,7 +37,7 @@ def safety_check(file):
     
     headers = {
         "accept": "application/json",
-        "x-apikey": "821c7d971d26bff91665027e1947212bc34cf7d671acf7382b91730444ac6219"
+        "x-apikey": "apikey"
     }
 
     response = requests.get(url, headers=headers)
