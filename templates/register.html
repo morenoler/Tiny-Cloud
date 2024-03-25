@@ -6,29 +6,33 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css')}}" />
+
 </head>
-<body>
-    <h1>Register</h1>
-    <form action="/register" method="post">
+<body class = "page">
+    <main>
+    <h1 class = "page-heading">Register</h1>
+    <form action="/register" method="post" class = "form">
         {% if user %}
             {% if user.status == 'SuperAdmin' %}
-                <label for="status">Status:</label>
+                <label class="input" for="status">Status:</label>
                 {{ form.status(class="form-control", required=true) }}
             {% endif %}
         {% else %}
             <h1>Please create an account</h1>
             {{ form.hidden_tag() }}
-            <label for="username">Username:</label>
-            {{ form.username(class="form-control", required=true) }}
+            
+            
+            {{ form.username(class="form-control", required=true, placeholder="Username") }}
             <br>
-            <label for="password">Password:</label>
-            {{ form.password(class="form-control", required=true) }}
+            
+            {{ form.password(class="form-control", required=true, placeholder="Password") }}
             <br>
-            <label for="confirm_password">Confirm Password:</label>
-            {{ form.confirm_password(class="form-control", required=true) }}
+            
+            {{ form.confirm_password(class="form-control", required=true, placeholder="Confirm Password") }}
             <br>
-            <label for="status">Status:</label>
-            {{ form.status(class="form-control", required=true) }}
+           
+            {{ form.status(class="form-control", required=true, placeholder="Status") }}
             <br>
             <input type="submit" value="Register" class="btn btn-primary">
         {% endif %}
@@ -44,5 +48,30 @@
             </ul>
         {% endif %}
     {% endwith %}
+        </main>
+    <footer> 
+        <div class="footer-content"> 
+            <a class="footer__logo" href="index.html"> 
+                <h1 a class="footer__logo-image">Tiny Cloud</h1>
+            </a> 
+            <nav> 
+                <ul class="nav-list"> 
+                    <li class="nav-item"> 
+                        <a href="" class="nav-link">TG</a> 
+                    </li> 
+                    <li class="nav-item"> 
+                        <a href="" class="nav-link">VK</a> 
+                    </li> 
+                    <li class="nav-item"> 
+                        <a href="" class="nav-link">YouTube</a> 
+                    </li> 
+                </ul> 
+            </nav> 
+        </div> 
+        <hr class="hr2"> 
+        <div class="copyright"> 
+            <p class="copyright-text">support@service.com</p> 
+        </div> 
+    </footer>
 </body>
 </html>
