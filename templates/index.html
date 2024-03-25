@@ -6,23 +6,31 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css')}}" />
 </head>
-<body>
+<body class = "page">
+    <main>
     {% if user %}
         <!-- Если пользователь вошел в систему, покажите файлы и форму загрузки -->
+        <div class="heading">
         <h1>Welcome, {{ user.username }} ({{user.status}})!</h1>
-        <a href="{{ url_for('logout') }}">Logout</a>
+            <div class="links">
+        <a href="{{ url_for('logout') }}" class = "link">Logout</a>
         <br>
-        <a href="{{ url_for('view_files') }}">View Files</a>
-
+        <a href="{{ url_for('view_files') }}" class="link">View Files</a>
+            </div>
+        </div>
+        <div class="content">
+        
+        
         <h2>Upload File</h2>
-        <form action="{{ url_for('upload_file') }}" method="post" enctype="multipart/form-data">
+        <form class="form" action="{{ url_for('upload_file') }}" method="post" enctype="multipart/form-data">
             {{ upload_form.csrf_token }}
-            {{ upload_form.file.label }}
-            {{ upload_form.file }}
+           
+            {{ upload_form.file() }}
             
             <label for="theme">Choose Theme:</label>
-            <select name="theme" id="theme">
+            <select name="theme" id="theme" class="select_big">
                 <option value="None">None</option>
                 <option value="Coding">Coding</option>
                 <option value="Gaming">Gaming</option>
@@ -34,10 +42,12 @@
             </select>
 
             <!-- Add a new input for the comment -->
-            <label for="comment">Comment:</label>
-            <input type="text" name="comment" id="comment" maxlength="255">
+            
+            <input type="text" name="comment" id="comment" maxlength="255" placeholder="Comment">
 
             {{ upload_form.submit }}
+        
+    </div>
         </form>
         {% if user.status == 'SuperAdmin' %}
             <a href="{{ url_for('SuperAdmin_users') }}">View Users</a>
@@ -56,9 +66,35 @@
             <!-- ... (ваш код формы входа) -->
         </form>
         <br>
-
-        <a href="{{ url_for('register') }}">Register</a>
-        <a href="{{ url_for('login') }}">Log in</a>
+        <div class = "links">
+        <a href="{{ url_for('register') }}" class="link">Register</a>
+        <a href="{{ url_for('login') }}" class = "link">Log in</a>
+    </div>
     {% endif %}
+</main>
+<footer> 
+    <div class="footer-content"> 
+        <a class="footer__logo" href="index.html"> 
+            <h1 a class="footer__logo-image">Tiny Cloud</h1>
+        </a> 
+        <nav> 
+            <ul class="nav-list"> 
+                <li class="nav-item"> 
+                    <a href="" class="nav-link">TG</a> 
+                </li> 
+                <li class="nav-item"> 
+                    <a href="" class="nav-link">VK</a> 
+                </li> 
+                <li class="nav-item"> 
+                    <a href="" class="nav-link">YouTube</a> 
+                </li> 
+            </ul> 
+        </nav> 
+    </div> 
+    <hr class="hr2"> 
+    <div class="copyright"> 
+        <p class="copyright-text">support@service.com</p> 
+    </div> 
+</footer>
 </body>
 </html>

@@ -1,6 +1,6 @@
 <!-- templates/register.html -->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,8 +11,10 @@
 </head>
 <body class = "page">
     <main>
-    <h1 class = "page-heading">Register</h1>
+    <div class = "content">
+    
     <form action="/register" method="post" class = "form">
+        <h1 class = "page-heading">Register</h1>
         {% if user %}
             {% if user.status == 'SuperAdmin' %}
                 <label class="input" for="status">Status:</label>
@@ -48,6 +50,7 @@
             </ul>
         {% endif %}
     {% endwith %}
+</div>
         </main>
     <footer> 
         <div class="footer-content"> 
