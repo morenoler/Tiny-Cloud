@@ -25,6 +25,7 @@ ALLOWED_EXTENSIONS = {'txt', 'pdf', 'doc', 'docx', 'pptx', 'xls', 'py', 'bat', '
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 db = SQLAlchemy(app)
+app.static_folder = 'static'
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
