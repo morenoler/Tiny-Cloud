@@ -14,10 +14,15 @@
         <!-- Если пользователь вошел в систему, покажите файлы и форму загрузки -->
         <div class="heading">
         <h1>Welcome, {{ user.username }} ({{user.status}})!</h1>
-            <div class="links">
-        <a href="{{ url_for('logout') }}" class = "link">Logout</a>
+        <div class="hed-links">
+        
+        <div class = "stroke">
+        <a href="{{ url_for('logout') }}" class = "">Logout</a>
+        </div>
         <br>
+        <div class = "stroke">
         <a href="{{ url_for('view_files') }}" class="link">View Files</a>
+        </div>
             </div>
         </div>
         <div class="content">
@@ -27,7 +32,7 @@
         <form class="form" action="{{ url_for('upload_file') }}" method="post" enctype="multipart/form-data">
             {{ upload_form.csrf_token }}
            
-            {{ upload_form.file() }}
+            {{ upload_form.file(class = "stroke") }}
             
             <label for="theme">Choose Theme:</label>
             <select name="theme" id="theme" class="select_big">
@@ -43,9 +48,9 @@
 
             <!-- Add a new input for the comment -->
             
-            <input type="text" name="comment" id="comment" maxlength="255" placeholder="Comment">
+            <input type="text" name="comment" id="comment" maxlength="255" placeholder="Comment" >
 
-            {{ upload_form.submit }}
+            {{ upload_form.submit (class = "stroke") }}
         
     </div>
         </form>
@@ -57,18 +62,22 @@
         <br>
     {% else %}
         <!-- Если пользователь не в системе, покажите форму входа -->
-        <h1>Please log in or create an account</h1>
+        <h1 class = "page-heading">Please log in or create an account</h1>
         <form action="{{ url_for('login') }}" method="post">
             <!-- ... (ваш код формы входа) -->
         </form>
 
-        <form action="{{ url_for('register') }}" method="post">
+        <form action="{{ url_for('register') }}"    method="post">
             <!-- ... (ваш код формы входа) -->
         </form>
         <br>
         <div class = "links">
+        <div class = "stroke">
         <a href="{{ url_for('register') }}" class="link">Register</a>
+        </div>
+        <div class = "stroke">
         <a href="{{ url_for('login') }}" class = "link">Log in</a>
+        </div>
     </div>
     {% endif %}
 </main>
