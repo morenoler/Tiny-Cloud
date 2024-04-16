@@ -19,11 +19,15 @@
     flex-direction: row;
     margin:10px;
 }
+img{
+    max-width: 75px;
+    max-height: 75px;
+}
 
 select{
-    background-color: #D9D9D9;
+    background-color: #E6E9ED;
     padding-block-end: 1px;
-    border: 2px solid #2165A4;
+    border: 2px solid #5488C0;
     border-radius: 40px;
     height:40px;
     width: 25%;
@@ -35,9 +39,9 @@ width: 35%;
 
 .hed-links{
     display: flex;
-    flex: 1;
+    
     flex-direction: row;
-    justify-content: right;
+    justify-content: space-between;
     align-items:center;
     gap:10px;
 }
@@ -52,13 +56,13 @@ width: 35%;
 .table-wrap {
     text-align: center;
     display: inline-block;
-    background-color: #D9D9D9;
+    background-color: #E6E9ED;
     padding: 2rem 2rem;
     color: #000;
   }
   
   table {
-    border: 1px solid #D9D9D9;
+    border: 1px solid #E6E9ED;
     width: 100%;
     margin:0;
     padding:0;
@@ -67,14 +71,14 @@ width: 35%;
   }
   
   table tr {
-    border: 1px solid#D9D9D9;
+    border: 1px solid#E6E9ED;
     padding: 5px;
   }
   
   table th, table td {
     padding: 10px;
     text-align: center;
-    border-right: 1px solid #D9D9D9;
+    border-right: 1px solid #E6E9ED;
   }
   
   table th {
@@ -95,14 +99,14 @@ width: 35%;
     table tr {
       margin-bottom: 10px;
       display: block;
-      border-bottom: 2px solid #D9D9D9;
+      border-bottom: 2px solid #E6E9ED;
     }
   
     table td {
       display: block;
       text-align: right;
       font-size: 13px;
-      border-bottom: 1px dotted #2165A4;
+      border-bottom: 1px dotted #5488C0;
       border-right: 1px solid transparent;
     }
   
@@ -117,16 +121,19 @@ width: 35%;
   }
 
 .stroke{
-    background-color: #D9D9D9;
+    background-color: #E6E9ED;
     padding-block-end: 1px;
-    border: 2px solid #2165A4;
+    border: 2px solid #5488C0;
     border-radius: 40px;
     padding: 5px 10px 5px 10px;
     margin: 10px;
     width:auto;
 }
 
-
+.cardtext{
+    display: flex;
+    flex-direction: column;
+}
 
 .heading{
     display:flex;
@@ -137,18 +144,18 @@ width: 35%;
 }
 
 input{
-    background-color: #D9D9D9;
+    background-color: #E6E9ED;
     padding-block-end: 1px;
-    border: 2px solid #2165A4;
+    border: 2px solid #5488C0;
     border-radius: 40px;
     height:40px;
     width: 90%;
     padding-left: 20px;
 }
 .input-small{
-    background-color: #D9D9D9;
+    background-color: #E6E9ED;
     padding-block-end: 1px;
-    border: 2px solid #2165A4;
+    border: 2px solid #5488C0;
     border-radius: 40px;
     height:40px;
     width: 20%;
@@ -217,21 +224,13 @@ main {
     display: flex; 
     flex-direction: column; 
     align-items: center; 
-    background: #D9D9D9; 
-    
+    background: #E6E9ED; 
+    width: 100%;
     flex:1;
 } 
  
 /* стили для хедера(шапки) сайта */ 
-header { 
-    display: flex; 
-    flex-direction: row; 
-    align-items: center; 
-    justify-content: center; 
-    width: 100%; 
-    border-bottom: 1px solid #A1A6B4; 
-    background: white; 
-} 
+ 
  
 .header-container { 
     display: flex; 
@@ -330,7 +329,7 @@ footer {
     display: flex; 
     flex-direction: column; 
     align-items:center ;
-    background: #2165A4; 
+    background: #5488C0; 
     margin-top: auto;
 } 
  
@@ -386,10 +385,15 @@ footer .nav-link {
 .card{ 
     display: flex; 
     flex-wrap: wrap; 
-    width: 1140px; 
-    border-radius: 50px; 
-    margin: 32px 150px; 
-    background-color: white; 
+    width: 30%; 
+    border-radius: 20px; 
+    padding: 5px;
+    background-color: #5488C0; 
+    gap: 10px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    margin-top: 20px;
 } 
 .big-image{ 
     width: 1044px; 
@@ -458,6 +462,16 @@ footer .nav-link {
 } 
  
 @media screen and (max-width: 600px) { 
+
+    .form-row{
+        display: flex;
+        flex-direction: column;
+        flex:0;
+        width: 100%;
+        align-items: center;
+        gap:5px;
+    }
+
     .header-container { 
         display: flex; 
         flex-direction: column; 
