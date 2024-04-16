@@ -10,11 +10,21 @@
 
 </head>
 <body class = "page">
+    
     <main>
+        <div class="card">
+            <img src="../static/icon.svg">
+            <div class="cardtext">
+                <a> Прототип сервиса облачного обмена данными </a>
+                <a>Tiny Cloud</a>
+            </div>
+            </div>
     <div class = "content">
     
     <form action="/register" method="post" class = "form">
+        
         <h1 class = "page-heading">Register</h1>
+
         {% if user %}
             {% if user.status == 'SuperAdmin' %}
                 <label class="input" for="status">Status:</label>
@@ -53,29 +63,31 @@
     {% endwith %}
 </div>
         </main>
-    <footer> 
-        <div class="footer-content"> 
-            <a class="footer__logo" href="index.html"> 
-                <h1 a class="footer__logo-image">Tiny Cloud</h1>
-            </a> 
-            <nav> 
-                <ul class="nav-list"> 
-                    <li class="nav-item"> 
-                        <a href="" class="nav-link">TG</a> 
-                    </li> 
-                    <li class="nav-item"> 
-                        <a href="" class="nav-link">VK</a> 
-                    </li> 
-                    <li class="nav-item"> 
-                        <a href="" class="nav-link">YouTube</a> 
-                    </li> 
-                </ul> 
-            </nav> 
-        </div> 
-        <hr class="hr2"> 
-        <div class="copyright"> 
-            <p class="copyright-text">support@service.com</p> 
-        </div> 
-    </footer>
+        <footer> 
+            <div class="footer-content"> 
+                <a class="footer__logo" href="index.html"> 
+                    <h1 a class="footer__logo-image">Tiny Cloud&nbsp</h1> 
+                    <img src="../static/icon.svg"
+                        
+                </a> 
+                <nav> 
+                    <ul class="nav-list"> 
+                        <li class="nav-item"> 
+                            <a href="" class="nav-link">TG</a> 
+                        </li> 
+                        <li class="nav-item"> 
+                            <a href="" class="nav-link">VK</a> 
+                        </li> 
+                        <li class="nav-item"> 
+                            <a href="" class="nav-link">YouTube</a> 
+                        </li> 
+                    </ul> 
+                </nav> 
+            </div> 
+            <hr class="hr2"> 
+            <div class="copyright"> 
+                <p class="copyright-text">support@service.com</p> 
+            </div> 
+        </footer>
 </body>
 </html>

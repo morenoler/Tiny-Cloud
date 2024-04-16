@@ -10,10 +10,18 @@
 </head>
 <body class = "page">
     <main>
+       
     {% if user %}
         <!-- Если пользователь вошел в систему, покажите файлы и форму загрузки -->
         <div class="heading">
         <h1 class="page-heading">Welcome, {{ user.username }} ({{user.status}})!</h1>
+        <div class="card">
+            <img src="../static/icon.svg">
+            <div class="cardtext">
+                <a> Прототип сервиса облачного обмена данными </a>
+                <a>Tiny Cloud</a>
+            </div>
+            </div>
         <div class="hed-links">
         
         <div class = "stroke">
@@ -25,6 +33,8 @@
         </div>
             </div>
         </div>
+
+        
         <div class="content">
         
         
@@ -62,7 +72,17 @@
         <br>
     {% else %}
         <!-- Если пользователь не в системе, покажите форму входа -->
+
+        <div class="card">
+            <img src="../static/icon.svg">
+            <div class="cardtext">
+                <a> Прототип сервиса облачного обмена данными </a>
+                <a>Tiny Cloud</a>
+            </div>
+            </div>
+        <div class="content">
         <h1 class = "page-heading">Please log in or create an account</h1>
+        
         <form action="{{ url_for('login') }}" method="post">
             <!-- ... (ваш код формы входа) -->
         </form>
@@ -80,11 +100,14 @@
         </div>
     </div>
     {% endif %}
+</div>
 </main>
 <footer> 
     <div class="footer-content"> 
         <a class="footer__logo" href="index.html"> 
-            <h1 a class="footer__logo-image">Tiny Cloud</h1>
+            <h1 a class="footer__logo-image">Tiny Cloud&nbsp</h1> 
+            <img src="../static/icon.svg"
+                
         </a> 
         <nav> 
             <ul class="nav-list"> 
