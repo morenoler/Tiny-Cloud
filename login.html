@@ -1,0 +1,72 @@
+<!-- templates/login.html -->
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css')}}" />
+</head>
+<body class = "page">
+    
+    <main>
+        <div class="card">
+            <img src="../static/icon.svg">
+            <div class="cardtext">
+                <a> Прототип сервиса облачного обмена данными </a>
+                <a>Tiny Cloud</a>
+            </div>
+            </div>
+
+    <div class = "content">
+    <form action="/login" method="post" class = "form">
+        <h1 class = "page-heading">Login</h1>
+        {{ form.hidden_tag() }}
+        
+        {{ form.username(class="form-control", required=true, placeholder="Username") }}
+      
+        
+        {{ form.password(class="form-control", required=true, placeholder="Password") }}
+  
+        <input type="submit" value="Login" class="btn btn-primary">
+    </form>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+</div>
+</main>
+<footer> 
+    <div class="footer-content"> 
+        <a class="footer__logo" href="index.html"> 
+            <h1 a class="footer__logo-image">Tiny Cloud&nbsp</h1> 
+            <img src="../static/icon.svg"
+                
+        </a> 
+        <nav> 
+            <ul class="nav-list"> 
+                <li class="nav-item"> 
+                    <a href="" class="nav-link">TG</a> 
+                </li> 
+                <li class="nav-item"> 
+                    <a href="" class="nav-link">VK</a> 
+                </li> 
+                <li class="nav-item"> 
+                    <a href="" class="nav-link">YouTube</a> 
+                </li> 
+            </ul> 
+        </nav> 
+    </div> 
+    <hr class="hr2"> 
+    <div class="copyright"> 
+        <p class="copyright-text">support@service.com</p> 
+    </div> 
+</footer>
+</body>
+</html>

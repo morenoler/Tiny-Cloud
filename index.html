@@ -1,0 +1,132 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css')}}" />
+</head>
+<body class = "page">
+    <main>
+       
+    {% if user %}
+        <!-- Если пользователь вошел в систему, покажите файлы и форму загрузки -->
+        <div class="heading">
+        <h1 class="page-heading">Welcome, {{ user.username }} ({{user.status}})!</h1>
+        <div class="card">
+            <img src="../static/icon.svg">
+            <div class="cardtext">
+                <a> Прототип сервиса облачного обмена данными </a>
+                <a>Tiny Cloud</a>
+            </div>
+            </div>
+        <div class="hed-links">
+        
+        <div class = "stroke">
+        <a href="{{ url_for('logout') }}" class = "">Logout</a>
+        </div>
+        <br>
+        <div class = "stroke">
+        <a href="{{ url_for('view_files') }}" class="link">View Files</a>
+        </div>
+            </div>
+        </div>
+
+        
+        <div class="content">
+        
+        
+        <h2 class="heading">Upload File</h2>
+        <form class="form" action="{{ url_for('upload_file') }}" method="post" enctype="multipart/form-data">
+            {{ upload_form.csrf_token }}
+           
+            {{ upload_form.file(class = "stroke") }}
+            
+            <label for="theme">Choose Theme:</label>
+            <select name="theme" id="theme" class="select_big">
+                <option value="None">None</option>
+                <option value="Coding">Coding</option>
+                <option value="Gaming">Gaming</option>
+                <option value="Science">Science</option>
+                <option value="Books">Books</option>
+                <option value="Learning">Learning</option>
+                <option value="Other">Other</option>
+                <!-- Add more options as needed -->
+            </select>
+
+            <!-- Add a new input for the comment -->
+            
+            <input type="text" name="comment" id="comment" maxlength="255" placeholder="Comment" >
+
+            {{ upload_form.submit (class = "stroke") }}
+        
+    </div>
+        </form>
+        {% if user.status == 'SuperAdmin' %}
+            <a href="{{ url_for('SuperAdmin_users') }}">View Users</a>
+        {% elif user.status == 'Admin' %}
+            <a href="{{ url_for('admin_users') }}">View Users</a>
+        {% endif %}
+        <br>
+    {% else %}
+        <!-- Если пользователь не в системе, покажите форму входа -->
+
+        <div class="card">
+            <img src="../static/icon.svg">
+            <div class="cardtext">
+                <a> Прототип сервиса облачного обмена данными </a>
+                <a>Tiny Cloud</a>
+            </div>
+            </div>
+        <div class="content">
+        <h1 class = "page-heading">Please log in or create an account</h1>
+        
+        <form action="{{ url_for('login') }}" method="post">
+            <!-- ... (ваш код формы входа) -->
+        </form>
+
+        <form action="{{ url_for('register') }}"    method="post">
+            <!-- ... (ваш код формы входа) -->
+        </form>
+        <br>
+        <div class = "links">
+        <div class = "stroke">
+        <a href="{{ url_for('register') }}" class="link">Register</a>
+        </div>
+        <div class = "stroke">
+        <a href="{{ url_for('login') }}" class = "link">Log in</a>
+        </div>
+    </div>
+    {% endif %}
+</div>
+</main>
+<footer> 
+    <div class="footer-content"> 
+        <a class="footer__logo" href="index.html"> 
+            <h1 a class="footer__logo-image">Tiny Cloud&nbsp</h1> 
+            <img src="../static/icon.svg"
+                
+        </a> 
+        <nav> 
+            <ul class="nav-list"> 
+                <li class="nav-item"> 
+                    <a href="" class="nav-link">TG</a> 
+                </li> 
+                <li class="nav-item"> 
+                    <a href="" class="nav-link">VK</a> 
+                </li> 
+                <li class="nav-item"> 
+                    <a href="" class="nav-link">YouTube</a> 
+                </li> 
+            </ul> 
+        </nav> 
+    </div> 
+    <hr class="hr2"> 
+    <div class="copyright"> 
+        <p class="copyright-text">support@service.com</p> 
+    </div> 
+</footer>
+</body>
+</html>
