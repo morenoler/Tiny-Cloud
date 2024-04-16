@@ -2,17 +2,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <tr>
-        <th><a href="{{ url_for('view_files', order_by='timestamp') }}">Sort by timestamp</a></th>
-        <th><a href="{{ url_for('view_files', order_by='theme') }}">Sort by theme</a></th>
-        <th><a href="{{ url_for('view_files', order_by='user.username') }}">Sort by author</a></th>
-            <!-- Add other columns as needed -->
-    </tr>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css')}}" />
 </head>
-<body>
+<body class = "page">
+    <main>
+        <tr>
+            <div class = "header">
+            <th><a href="{{ url_for('view_files', order_by='timestamp') }}">Sort by timestamp</a></th>
+            <th><a href="{{ url_for('view_files', order_by='theme') }}">Sort by theme</a></th>
+            <th><a href="{{ url_for('view_files', order_by='user.username') }}">Sort by author</a></th>
+            </div>
+        </tr>
     <h1>Files</h1>
-    <form action="{{ url_for('view_files') }}" method="get">
-        <label for="theme_filter">Filter by Theme:</label>
+    <form class ='form-row' action="{{ url_for('view_files') }}" method="get">
+        
+        <label for="theme_filter">Theme:</label>
         <select name="theme_filter" id="theme_filter">
             <option value="">All Themes</option>
             <option value="Coding" {% if theme_filter == 'Coding' %}selected{% endif %}>Coding</option>
@@ -20,42 +24,70 @@
         </select>
         
         <label for="start_date_filter">Start Date:</label>
-        <input type="date" name="start_date_filter" value="{{ start_date_filter }}">
+        <input class="input-small" type="date" name="start_date_filter" value="{{ start_date_filter }}">
         
         <label for="end_date_filter">End Date:</label>
-        <input type="date" name="end_date_filter" value="{{ end_date_filter }}">
+        <input class="input-small" type="date" name="end_date_filter" value="{{ end_date_filter }}">
 
         <button type="submit">Apply Filters</button>
+
     </form>
-    <table>
+    <div class="table-wrap">
+    <table >
 
         <thead>
-            <tr>
-                <th>Theme</th>
-                <th>Discription</th>
-                <th>File Name</th>
-                <th>Timestamp</th>
-                <th>Uploaded By</th>
-                <th>Action</th>
-                <th>Delete file</th>
+            <tr class="stroke">
+                <th class = "stroke">Theme</th>
+                <th class = "stroke">Discription</th>
+                <th class = "stroke">File Name</th>
+                <th class = "stroke">Timestamp</th>
+                <th class = "stroke">Uploaded By</th>
+                <th class = "stroke">Action</th>
+                <th class = "stroke">Delete</th>
             </tr>
         </thead>
             <tbody>
                 {% for file in files %}
-                    <tr>
-                        <td>{{ file.theme }}</td>
-                        <td>{{ file.comment }}</td>  <!-- Display the comment -->
-                        <td>{{ file.name }}</td>
-                        <td>{{ file.timestamp }}</td>
-                        <td>{{ file.user.username }}</td>
+                    <tr class="stroke">
+                        <td class = "stroke">{{ file.theme }}</td>
+                        <td class = "stroke">{{ file.comment }}</td>  <!-- Display the comment -->
+                        <td class = "stroke">{{ file.name }}</td>
+                        <td class = "stroke">{{ file.timestamp }}</td>
+                        <td class = "stroke">{{ file.user.username }}</td>
                         
-                        <td><a href="{{ url_for('download_file', filename=file.name) }}">Download</a></td>
-                        <td><a href="{{ url_for('admin_delete_file', file_id=file.id) }}">Delete</a></td>
+                        <td class = "stroke"><a href="{{ url_for('download_file', filename=file.name) }}">Download</a></td>
+                        <td class = "stroke"><a href="{{ url_for('admin_delete_file', file_id=file.id) }}">Delete</a></td>
                     </tr>
                 {% endfor %}
             </tbody>
     </table>
-    <a href="{{ url_for('index') }}">Back to Home</a>
+</div>
+    <a href="{{ url_for('index') }}" class = "stroke">Back to Home</a>
+    <footer> 
+        <div class="footer-content"> 
+            <a class="footer__logo" href="index.html"> 
+                <h1 a class="footer__logo-image">Tiny Cloud</h1>
+            </a> 
+            <nav> 
+                <ul class="nav-list"> 
+                    <li class="nav-item"> 
+                        <a href="" class="nav-link">TG</a> 
+                    </li> 
+                    <li class="nav-item"> 
+                        <a href="" class="nav-link">VK</a> 
+                    </li> 
+                    <li class="nav-item"> 
+                        <a href="" class="nav-link">YouTube</a> 
+                    </li> 
+                </ul> 
+            </nav> 
+        </div> 
+        <hr class="hr2"> 
+        <div class="copyright"> 
+            <p class="copyright-text">support@service.com</p> 
+        </div> 
+    </footer>
+</main>
 </body>
 </html>
 
