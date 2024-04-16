@@ -7,7 +7,7 @@
 } 
 
 .page-heading{
-    margin:20px 0px 20px 0px;
+    margin:20px;
 }
 
 .btn-primary{
@@ -49,12 +49,80 @@ width: 35%;
     justify-content: space-between;    
 }
 
+.table-wrap {
+    text-align: center;
+    display: inline-block;
+    background-color: #D9D9D9;
+    padding: 2rem 2rem;
+    color: #000;
+  }
+  
+  table {
+    border: 1px solid #D9D9D9;
+    width: 100%;
+    margin:0;
+    padding:0;
+    border-collapse: collapse;
+    border-spacing: 0;
+  }
+  
+  table tr {
+    border: 1px solid#D9D9D9;
+    padding: 5px;
+  }
+  
+  table th, table td {
+    padding: 10px;
+    text-align: center;
+    border-right: 1px solid #D9D9D9;
+  }
+  
+  table th {
+    background-color: #444;
+    text-transform: uppercase;
+    font-size: 14px;
+    letter-spacing: 1px;
+  }
+  @media screen and (max-width: 600px) {
+    table {
+      border: 0;
+    }
+  
+    table thead {
+      display: none;
+    }
+  
+    table tr {
+      margin-bottom: 10px;
+      display: block;
+      border-bottom: 2px solid #D9D9D9;
+    }
+  
+    table td {
+      display: block;
+      text-align: right;
+      font-size: 13px;
+      border-bottom: 1px dotted #2165A4;
+      border-right: 1px solid transparent;
+    }
+  
+    
+  
+    table td:before {
+      content: attr(data-label);
+      float: left;
+      text-transform: uppercase;
+      font-weight: bold;
+    }
+  }
+
 .stroke{
     background-color: #D9D9D9;
     padding-block-end: 1px;
     border: 2px solid #2165A4;
     border-radius: 40px;
     padding: 5px 10px 5px 10px;
+    margin: 10px;
     width:auto;
 }
 
@@ -65,6 +133,7 @@ width: 35%;
     justify-content: space-around;
     width:90%;
     margin: 20px;
+    
 }
 
 input{
@@ -125,15 +194,24 @@ a {
 } 
  
 /* задание шрифта всей странице */ 
+
 body { 
     font-family: "Inter"; 
     height:100%;
     min-height: 100%;  
     display: flex;
     flex-direction: column;
-} 
+    text-align: center;
+}
  
-/* стили для главного контейнера */ 
+/* body { 
+    font-family: "Inter"; 
+    height:100%;
+    min-height: 100%;  
+    display: flex;
+    flex-direction: column;
+    
+} */ 
 main { 
     
     display: flex; 
@@ -202,7 +280,7 @@ nav {
 } 
  
 h1 { 
-    font-size: 30px; 
+    font-size: 32px; 
 } 
  
 /* стили для контейнера кроссовок */ 
@@ -267,10 +345,13 @@ footer {
 } 
  
 .footer__logo { 
+    display: flex;
     max-width: 300px; 
     width: 100%;
     font-size:56px;
     color: #000000;
+    align-items: center;
+    justify-content: center; 
 } 
  
 footer .nav-link { 
@@ -376,7 +457,7 @@ footer .nav-link {
     width: 1140px; 
 } 
  
-@media screen and (max-width: 375px) { 
+@media screen and (max-width: 600px) { 
     .header-container { 
         display: flex; 
         flex-direction: column; 
@@ -396,10 +477,13 @@ footer .nav-link {
         gap : 10px; 
     } 
     h1{ 
-            font-size: 32px; 
-             
- 
+            font-size: 20px; 
     } 
+    .nav-link { 
+        font-size: 16px;
+    }
+
+
     .sneaker-image { 
         width: 85%; 
         height: 85%; 
@@ -472,4 +556,4 @@ footer .nav-link {
     .desc_title{ 
         font-size: 16px; 
     } 
- }
+ } 
