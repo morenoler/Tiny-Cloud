@@ -15,8 +15,8 @@
         <div class="card">
             <img src="../static/icon.svg">
             <div class="cardtext">
-                <a> Прототип сервиса облачного обмена данными </a>
-                <a>Tiny Cloud</a>
+                <p> Прототип сервиса облачного обмена данными </p>
+                <p>Tiny Cloud</p>
             </div>
             </div>
     <div class = "content">
@@ -35,16 +35,16 @@
             {{ form.hidden_tag() }}
             
             
-            {{ form.username(class="form-control", required=true, placeholder="Username") }}
+            {{ form.username(class="form-control", required=true, placeholder="Имя пользователя") }}
             <br>
             
-            {{ form.password(class="form-control", required=true, placeholder="Password") }}
+            {{ form.password(class="form-control", required=true, placeholder="Пароль") }}
             <br>
             
-            {{ form.confirm_password(class="form-control", required=true, placeholder="Confirm Password") }}
+            {{ form.confirm_password(class="form-control", required=true, placeholder="Подтвердить пароль") }}
             <br>
            
-            {{ form.status(class="stroke", required=true, placeholder="Status") }}
+            {{ form.status(class="stroke", required=true, placeholder="Статус") }}
             <br>
             
             <input class="stroke" type="submit" value="Register" class="btn btn-primary">

@@ -12,7 +12,7 @@
     <p>Updating status for {{ user_to_update.username }}</p>
     <form action="/admin_update_status/{{ user_to_update.id }}" method="post">
         {{ form.hidden_tag() }}
-        <label for="new_status">New Status:</label>
+        <label for="new_status">Новый статус:</label>
         {{ form.new_status(class="form-control", required=true) }}
         <br>
         <input type="submit" value="Update Status" class="btn btn-primary">

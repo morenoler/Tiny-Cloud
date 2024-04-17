@@ -9,8 +9,8 @@
         <div class="card">
             <img src="../static/icon.svg">
             <div class="cardtext">
-                <a> Прототип сервиса облачного обмена данными </a>
-                <a>Tiny Cloud</a>
+                <p>Прототип сервиса облачного обмена данными</p>
+                <p>Tiny Cloud</p>
             </div>
             </div>
     <h1 class="heading">Файлы</h1>
@@ -20,6 +20,11 @@
         <select name="theme_filter" id="theme_filter">
             <option value="">Все темы</option>
             <option value="Coding" {% if theme_filter == 'Coding' %}selected{% endif %}>Coding</option>
+            <option value="Coding" {% if theme_filter == 'Gaming' %}selected{% endif %}>Gaming</option>
+            <option value="Coding" {% if theme_filter == 'Science' %}selected{% endif %}>Science</option>
+            <option value="Coding" {% if theme_filter == 'Books' %}selected{% endif %}>Books</option>
+            <option value="Coding" {% if theme_filter == 'Learning' %}selected{% endif %}>Learning</option>
+            <option value="Coding" {% if theme_filter == 'Other' %}selected{% endif %}>Other</option>
             <!-- Добавьте аналогичные опции для других тем -->
         </select>
         
@@ -29,7 +34,7 @@
         <label for="end_date_filter">Дата конца:</label>
         <input class="stroke" type="date" name="end_date_filter" value="{{ end_date_filter }}">
 
-        <button type="submit">Применить фильры</button>
+        <button type="submit">Применить фильтры</button>
 
         <tr>
             <div class = "header">
@@ -45,13 +50,13 @@
 
         <thead>
             <tr class="stroke">
-                <th class = "stroke">Theme</th>
-                <th class = "stroke">Discription</th>
-                <th class = "stroke">File Name</th>
+                <th class = "stroke">Тема</th>
+                <th class = "stroke">Описание</th>
+                <th class = "stroke">Имя файла</th>
                 <th class = "stroke">Timestamp</th>
-                <th class = "stroke">Uploaded By</th>
-                <th class = "stroke">Action</th>
-                <th class = "stroke">Delete</th>
+                <th class = "stroke">Автор</th>
+                <th class = "stroke">Загрузить</th>
+                <th class = "stroke">Удалить</th>
             </tr>
         </thead>
             <tbody>
@@ -80,7 +85,7 @@
             <nav> 
                 <ul class="nav-list"> 
                     <li class="nav-item"> 
-                        <a href="" class="nav-link">TG</a> 
+                        <a href="https://t.me/Tiny_Cloud_Official" class="nav-link">TG</a> 
                     </li> 
                     <li class="nav-item"> 
                         <a href="" class="nav-link">VK</a> 
