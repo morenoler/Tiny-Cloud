@@ -1,11 +1,11 @@
 <!-- templates/SuperAdmin_users.html -->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <!-- (ваш текущий код) -->
 </head>
 <body>
-    <h1>Welcome, {{ user.username }} ({{user.status}})!</h1>
+    <h1>Добро пожаловать, {{ user.username }} ({{user.status}})!</h1>
     <a href="{{ url_for('index') }}">Back</a>
 
     <h2>Users</h2>
@@ -22,7 +22,7 @@
     </ul>
 
     {% if user.status == 'SuperAdmin' %}
-        <a href="{{ url_for('create_admin') }}">Register New User</a>
+        <a href="{{ url_for('create_admin') }}">Зарегестрировать нового пользователя</a>
     {% endif %}
 </body>
 </html>

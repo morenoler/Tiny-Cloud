@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register</title>
+    <title>Зарегестрироваться</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css')}}" />
 
 </head>
@@ -23,15 +23,15 @@
     
     <form action="/register" method="post" class = "form">
         
-        <h1 class = "page-heading">Register</h1>
+        <h1 class = "page-heading">Регистрация</h1>
 
         {% if user %}
             {% if user.status == 'SuperAdmin' %}
-                <label class="input" for="status">Status:</label>
+                <label class="input" for="status">Статус:</label>
                 {{ form.status(class="form-control", required=true) }}
             {% endif %}
         {% else %}
-            <h1>Please create an account</h1>
+            <h1>Пожалуйста, создайте аккаунт</h1>
             {{ form.hidden_tag() }}
             
             

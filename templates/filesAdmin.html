@@ -1,6 +1,6 @@
 <!-- templates/filesAdmin.html -->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css')}}" />
 </head>
@@ -13,29 +13,29 @@
                 <a>Tiny Cloud</a>
             </div>
             </div>
-    <h1 class="heading">Files</h1>
+    <h1 class="heading">Файлы</h1>
     <form class ='form-row' action="{{ url_for('view_files') }}" method="get">
         
-        <label for="theme_filter">Theme:</label>
+        <label for="theme_filter">Тема:</label>
         <select name="theme_filter" id="theme_filter">
-            <option value="">All Themes</option>
+            <option value="">Все темы</option>
             <option value="Coding" {% if theme_filter == 'Coding' %}selected{% endif %}>Coding</option>
             <!-- Добавьте аналогичные опции для других тем -->
         </select>
         
-        <label for="start_date_filter">Start Date:</label>
+        <label for="start_date_filter">Дата начала:</label>
         <input class="stroke" type="date" name="start_date_filter" value="{{ start_date_filter }}">
         
-        <label for="end_date_filter">End Date:</label>
+        <label for="end_date_filter">Дата конца:</label>
         <input class="stroke" type="date" name="end_date_filter" value="{{ end_date_filter }}">
 
-        <button type="submit">Apply Filters</button>
+        <button type="submit">Применить фильры</button>
 
         <tr>
             <div class = "header">
-            <th ><a class="stroke" href="{{ url_for('view_files', order_by='timestamp') }}">Sort by timestamp</a></th>
-            <th><a class="stroke" href="{{ url_for('view_files', order_by='theme') }}">Sort by theme</a></th>
-            <th><a class="stroke" href="{{ url_for('view_files', order_by='user.username') }}">Sort by author</a></th>
+            <th ><a class="stroke" href="{{ url_for('view_files', order_by='timestamp') }}">Сортировка по времени</a></th>
+            <th><a class="stroke" href="{{ url_for('view_files', order_by='theme') }}">Сортировка по теме</a></th>
+            <th><a class="stroke" href="{{ url_for('view_files', order_by='user.username') }}">Сортировка по автору</a></th>
             </div>
         </tr>
 
@@ -70,7 +70,7 @@
             </tbody>
     </table>
 </div>
-    <a href="{{ url_for('index') }}" class = "stroke">Back to Home</a>
+    <a href="{{ url_for('index') }}" class = "stroke">На главную страницу</a>
     <footer> 
         <div class="footer-content"> 
             <a class="footer__logo" href="index.html"> 

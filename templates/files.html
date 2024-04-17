@@ -1,12 +1,12 @@
 <!-- templates/files.html -->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <!-- ваш существующий код -->
 </head>
 <body>
-    <h1>Files</h1>
-    <a href="{{ url_for('index') }}">Back</a>
+    <h1>Файлы</h1>
+    <a href="{{ url_for('index') }}">Назад</a>
     <table>
         <thead>
             <tr>
@@ -22,7 +22,7 @@
                     <td>{{ file.theme }}</td>
                     <td>{{ file.name }}</td>
                     <td>{{ file.timestamp }}</td>
-                    <td><a href="{{ url_for('download_file', filename=file.name) }}">Download</a></td>
+                    <td><a href="{{ url_for('download_file', filename=file.name) }}">Загрузить</a></td>
                 </tr>
             {% endfor %}
         </tbody>

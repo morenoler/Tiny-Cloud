@@ -1,6 +1,6 @@
 <!-- templates/admin_update_status.html -->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,7 +8,7 @@
     <title>Update User Status</title>
 </head>
 <body>
-    <h1>Update User Status</h1>
+    <h1>Изменить статус пользователя</h1>
     <p>Updating status for {{ user_to_update.username }}</p>
     <form action="/admin_update_status/{{ user_to_update.id }}" method="post">
         {{ form.hidden_tag() }}
@@ -28,6 +28,6 @@
         {% endif %}
     {% endwith %}
     
-    <a href="{{ url_for('admin_users') }}">Back to Users</a>
+    <a href="{{ url_for('admin_users') }}">Назад к списку пользователей</a>
 </body>
 </html>
