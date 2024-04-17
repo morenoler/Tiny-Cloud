@@ -44,7 +44,7 @@
            
             {{ upload_form.file(class = "stroke") }}
             
-            <label for="theme">Выберете тему:</label>
+            <label for="theme">Выберите тему:</label>
             <select name="theme" id="theme" class="select_big">
                 <option value="None">None</option>
                 <option value="Coding">Coding</option>
@@ -81,7 +81,7 @@
             </div>
             </div>
         <div class="content">
-        <h1 class = "page-heading">Для использования Авторизуйтесть или Зарегистрируйтесь как новый пользователь</h1>
+        <h1 class = "page-heading">Для использования сервиса Авторизуйтесть или Зарегистрируйтесь как новый пользователь</h1>
         
         <form action="{{ url_for('login') }}" method="post">
             <!-- ... (ваш код формы входа) -->
@@ -93,7 +93,7 @@
         <br>
         <div class = "links">
         <div class = "stroke">
-        <a href="{{ url_for('register') }}" class="link">Зарегестрироваться</a>
+        <a href="{{ url_for('register') }}" class="link">Зарегистрироваться</a>
         </div>
         <div class = "stroke">
         <a href="{{ url_for('login') }}" class = "link">Войти</a>
