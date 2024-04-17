@@ -44,10 +44,11 @@
             {{ form.confirm_password(class="form-control", required=true, placeholder="Подтвердить пароль") }}
             <br>
            
-            {{ form.status(class="stroke", required=true, placeholder="Статус") }}
+            {{ form.status(class="stroke", required=true, placeholder="Статус", value="Статус") }}
+
             <br>
             
-            <input class="stroke" type="submit" value="Register" class="btn btn-primary">
+            <input class="stroke" type="submit" value="Register" class="btn btn-primary" placeholder="Регистрация">
         {% endif %}
         </form>
         <br>
