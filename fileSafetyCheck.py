@@ -1,5 +1,4 @@
-#python fileSafetyCheck.py
-#821c7d971d26bff91665027e1947212bc34cf7d671acf7382b91730444ac6219
+
 import json
 import requests
 
@@ -51,3 +50,4 @@ def safety_check(file):
         return False
     else:
         return True
+
